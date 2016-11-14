@@ -34,7 +34,7 @@ class Session(object):
         return cls(**Database.find_one(Session.COLLECTION_NAME, {'login': login}))
 
     @classmethod
-    def get_by_logout(cls, logout, server_name):
+    def get_by_logout(cls, server_name, logout=None):
         return [cls(**session) for session in Database.find(Session.COLLECTION_NAME, {'logout': logout, 'server_name': server_name})]
 
     @classmethod

@@ -1,8 +1,7 @@
 import threading
-import time
-from datetime import datetime
+from time import sleep
+from datetime import datetime, timedelta
 from mcstatus import MinecraftServer
-from pymongo import MongoClient
 from src.user_logger import app
 from src.models.session import Session
 
@@ -17,13 +16,30 @@ class LoggerThread(threading.Thread):
     def run(self):
         while True:
             for server in app.config['LOGGING_SERVERS']:
+                logged_in_users = None
                 try:
-                    logged_in_users = LoggerThread.get_loggedin_users(server.name, server.port)
+                    logged_in_users = LoggerThread.get_loggedin_users(server.domain, server.port)
                 except Exception as e:
-                    print(e)
+                    print('get_loggedin_users error:', e)
+                sessions = Session.get_by_logout(server_name=server.name)
 
-                sessions = Session.get_by_logout(None, server_name=server.name)
+                # Updating and saving logout info
+                if sessions:
+                    for session in sessions:
+                        if not LoggerThread.exist_in_mc(session, logged_in_users):
+                            session.logout = datetime.utcnow()
+                            length = session.logout - session.login
+                            session.session_length = length.total_seconds()
+                            session.update_by_id()
+                # Saving new logged in user to database
+                if logged_in_users:
+                    for logged_in_user in logged_in_users:
+                        if not LoggerThread.exist_in_mongo(logged_in_user, sessions):
+                            now = datetime.utcnow()
+                            new_session = Session(logged_in_user, server.name, now)
+                            new_session.save_to_mongo()
 
+            sleep(60)
 
     @staticmethod
     def get_loggedin_users(mc_server, port):
