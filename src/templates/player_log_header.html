@@ -1,0 +1,44 @@
+{% extends "header.html" %}
+
+{% block body %}
+
+<div>
+
+    <div class="btn-group">
+        <button class="btn btn-default dropdown-toggle" style="margin-right:10px;" {% if timezone_selected == None %}disabled="disabled"{% endif %} type="button" id="dropdownPlayerMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {% if player_selected == None %}
+                Player
+            {% else %}
+                {{ player_selected }}
+            {% endif %}
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownPlayerMenu">
+            <li><a href="/player_log/{{ timezone_selected }}/AllPlayers">All Players</a></li>
+                {% for player in player_list %}
+                <li><a href="/player_log/{{ timezone_selected }}/{{ player }}">{{ player }}</a> </li>
+                {% endfor %}
+        </ul>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-default dropdown-toggle" style="margin-right:10px;" {% if player_selected == None %}disabled="disabled"{% endif %} type="button" id="dropdownServerMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {% if server_selected == None %}
+                Server
+            {% else %}
+                {{ server_selected }}
+            {% endif %}
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownServerMenu">
+            <li><a href="/player_log/{{ timezone_selected }}/{{ player_selected }}/AllServers">All Servers</a></li>
+            {% for server in server_list %}
+                <li><a href="/player_log/{{ timezone_selected }}/{{ player_selected }}/{{ server }}">{{ server }}</a> </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% block logbody %}{% endblock %}
+
+{% endblock %}

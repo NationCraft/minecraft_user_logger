@@ -11,7 +11,6 @@ def start_logger_thread():
     logger = LoggerThread(1, 'Logger')
     logger.daemon = True
     logger.start()
-    print('started logger thread')
 
 
 init_db()

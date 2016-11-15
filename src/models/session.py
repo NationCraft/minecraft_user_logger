@@ -38,5 +38,10 @@ class Session(object):
         return [cls(**session) for session in Database.find(Session.COLLECTION_NAME, {'logout': logout, 'server_name': server_name})]
 
     @classmethod
+    def get_latest(cls):
+        all_sessions = [cls(**session) for session in Database.find_sorted(Session.COLLECTION_NAME, {}, 'login')]
+        return all_sessions[:10]
+
+    @classmethod
     def get_all(cls):
         return [cls(**session) for session in Database.find(Session.COLLECTION_NAME, {})]

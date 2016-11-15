@@ -1,0 +1,41 @@
+{% extends "header.html" %}
+
+{% block body %}
+<div class="row">
+    {% for server in servers %}
+        <div class="col-xs-12 col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>{{ server.name }}</strong></div>
+                <div class="panel-body">
+                    <p class="text-center"><strong>Online:&nbsp;&nbsp;&nbsp;</strong>{% if server.server_online %}<img src="{{ url_for('static', filename='img/check-2x.png') }}">{% else %}<img src="{{ url_for('static', filename='img/x-2x.png') }}">{% endif %}</p>
+                    <p class="text-center"><strong>Players Online:&nbsp;&nbsp;</strong>{{ server.online_players }}</p>
+                </div>
+                <div>
+                    <div class="text-center"><img src="{{ url_for('static', filename='img/arrow-bottom-2x.png') }}"><strong>&nbsp;&nbsp;List of Players Online&nbsp;&nbsp;</strong><img src="{{ url_for('static', filename='img/arrow-bottom-2x.png') }}"></div>
+                    <ul class="list-groups" style="padding:5px;" title="Players Online">
+                        {% for player in server.player_list %}
+                            <li class="list-group-item list-group-item-info text-center">{{ player }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="panel-footer">{{ server.domain }}</div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div id="newDate">
+
+    </div>
+
+    <script type="application/javascript">
+        function convert() {
+            console.log("{{ dt.month }}/{{ dt.day }}/{{ dt.year }} {{ dt.hour }}:{{ dt.second }} UTC")
+            var localDate = new Date("{{ dt.month }}/{{ dt.day }}/{{ dt.year }} {{ dt.hour }}:{{ dt.minute }}:{{ dt.second }} UTC");
+            console.log(localDate.toString());
+            document.write("{{ test }}");
+        }
+        convert();
+
+    </script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "player_log_header.html" %}
+
+{% block logbody %}
+
+<div class="panel panel-default" style="margin-top:20px;">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Player Log</div>
+
+    <!-- Table -->
+    <table class="table table-striped">
+        <thead>
+            <tr class="success">
+                <th>Player</th>
+                <th>Server</th>
+                <th>Login</th>
+                <th>Logout</th>
+                <th>Session length</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for session in sessions %}
+                <tr>
+                    <td>{{ session.player_name }}</td>
+                    <td>{{ session.server_name }}</td>
+                    <td>{{ (session.login + dif).strftime('%Y-%m-%d  %H:%M') }}</td>
+                    {% if session.logout %}
+                        <td>{{ (session.logout + dif).strftime('%Y-%m-%d  %H:%M') }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if session.session_length %}
+                        <td>{{ (session.session_length / 60)|int }} min {{ (session.session_length % 60)|int }} sec</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+
+        <tbody>
+            {% if player_data != None %}
+                {% for i in player_data %}as
+                    <tr>
+                        <td>{{ i.username }}</td>
+                        <td>{{ i.server }}</td>
+                        <td>{{ i.login.strftime('%Y-%m-%d  %H:%M') }}</td>
+                        <td>{{ i.logout.strftime('%Y-%m-%d  %H:%M') }}</td>
+                        <td>{{ i.session }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

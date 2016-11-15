@@ -1,0 +1,11 @@
+{% extends "player_log_header.html" %}
+
+{% block head %}
+    <script type="application/javascript">
+        function getDate() {
+            var localDate = new Date("{{ dt.month }}/{{ dt.day }}/{{ dt.year }} {{ dt.hour }}:{{ dt.minute }}:{{ dt.second }} UTC");
+            window.location = "..{{url_for('player_log')}}/" + localDate.getHours();
+        }
+        getDate();
+    </script>
+{% endblock %}

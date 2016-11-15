@@ -50,13 +50,13 @@ class LoggerThread(threading.Thread):
     @staticmethod
     def exist_in_mc(session_player, online_list):
         for p in online_list:
-            if p['username'] == session_player.player_name:
+            if p == session_player.player_name:
                 return True
         return False
 
     @staticmethod
     def exist_in_mongo(online_player, sessions):
         for session in sessions:
-            if session.player_name == online_player['username']:
+            if session.player_name == online_player:
                 return True
         return False
