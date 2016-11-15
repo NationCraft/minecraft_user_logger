@@ -23,9 +23,9 @@
                 <tr>
                     <td>{{ session.player_name }}</td>
                     <td>{{ session.server_name }}</td>
-                    <td>{{ (session.login + dif).strftime('%Y-%m-%d  %H:%M') }}</td>
+                    <td>{{ (session.login - dif).strftime('%Y-%m-%d  %H:%M') }}</td>
                     {% if session.logout %}
-                        <td>{{ (session.logout + dif).strftime('%Y-%m-%d  %H:%M') }}</td>
+                        <td>{{ (session.logout - dif).strftime('%Y-%m-%d  %H:%M') }}</td>
                     {% else %}
                         <td></td>
                     {% endif %}

@@ -38,9 +38,19 @@ class Session(object):
         return [cls(**session) for session in Database.find(Session.COLLECTION_NAME, {'logout': logout, 'server_name': server_name})]
 
     @classmethod
-    def get_latest(cls):
-        all_sessions = [cls(**session) for session in Database.find_sorted(Session.COLLECTION_NAME, {}, 'login')]
-        return all_sessions[:10]
+    def get_latest(cls, quantity, server, player):
+        if server == 'all' and player == 'all':
+            all_sessions = [cls(**session) for session in Database.find_sorted(Session.COLLECTION_NAME, {}, 'login')]
+        elif server != 'all' and player == 'all':
+            all_sessions = [cls(**session) for session in Database.find_sorted(Session.COLLECTION_NAME, {'server_name': server}, 'login')]
+        elif server == 'all' and player != 'all':
+            all_sessions = [cls(**session) for session in Database.find_sorted(Session.COLLECTION_NAME, {'player_name': player}, 'login')]
+        elif server != 'all' and player != 'all':
+            all_sessions = [cls(**session) for session in Database.find_sorted(Session.COLLECTION_NAME, {'server_name': server, 'player_name': player}, 'login')]
+        if quantity == 'latest':
+            return all_sessions[:10]
+        elif quantity == 'all':
+            return all_sessions
 
     @classmethod
     def get_all(cls):

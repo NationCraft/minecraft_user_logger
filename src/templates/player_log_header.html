@@ -2,38 +2,44 @@
 
 {% block body %}
 
-<div>
+<div class="container-fluid">
 
-    <div class="btn-group">
-        <button class="btn btn-default dropdown-toggle" style="margin-right:10px;" {% if timezone_selected == None %}disabled="disabled"{% endif %} type="button" id="dropdownPlayerMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            {% if player_selected == None %}
-                Player
-            {% else %}
-                {{ player_selected }}
-            {% endif %}
+    <div class="btn-group col-xl-1 col-lg-2 col-md-2 col-sm-3 col-xs-12">
+        <label for="dropdownQuantityMenu" control-label>Display</label>
+        <button class="btn btn-default dropdown-toggle col-sm-12 col-xs-12" type="button" id="dropdownQuantityMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {{ quantity }}
             <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownPlayerMenu">
-            <li><a href="/player_log/{{ timezone_selected }}/AllPlayers">All Players</a></li>
-                {% for player in player_list %}
-                <li><a href="/player_log/{{ timezone_selected }}/{{ player }}">{{ player }}</a> </li>
-                {% endfor %}
+        <ul class="dropdown-menu" aria-labelledby="dropdownQuantityMenu">
+            <li><a href="{{ url_for('player_log_latest', sec=sec, quantity='latest', server=server, player=player) }}">latest</a></li>
+            <li><a href="{{ url_for('player_log_latest', sec=sec, quantity='all', server=server, player=player) }}">all</a></li>
         </ul>
     </div>
 
-    <div class="btn-group">
-        <button class="btn btn-default dropdown-toggle" style="margin-right:10px;" {% if player_selected == None %}disabled="disabled"{% endif %} type="button" id="dropdownServerMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            {% if server_selected == None %}
-                Server
-            {% else %}
-                {{ server_selected }}
-            {% endif %}
+    <div class="btn-group col-xl-1 col-lg-2 col-md-2 col-sm-3 col-xs-12">
+        <label for="dropdownServerMenu" control-label>Server</label>
+        <button class="btn btn-default dropdown-toggle col-sm-12 col-xs-12" type="button" id="dropdownServerMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {{ server }}
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownServerMenu">
-            <li><a href="/player_log/{{ timezone_selected }}/{{ player_selected }}/AllServers">All Servers</a></li>
-            {% for server in server_list %}
-                <li><a href="/player_log/{{ timezone_selected }}/{{ player_selected }}/{{ server }}">{{ server }}</a> </li>
+            <li><a href="{{ url_for('player_log_latest', sec=sec, quantity=quantity, server='all', player=player) }}">all</a></li>
+            {% for s in server_list %}
+                <li><a href="{{ url_for('player_log_latest', sec=sec, quantity=quantity, server=s.name, player=player) }}">{{ s.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="btn-group col-xl-1 col-lg-2 col-md-2 col-sm-3 col-xs-12">
+        <label for="dropdownPlayerMenu" control-label>Player</label>
+        <button class="btn btn-default dropdown-toggle col-sm-12 col-xs-12" type="button" id="dropdownPlayerMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {{ player }}
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownPlayerMenu">
+            <li><a href="{{ url_for('player_log_latest', sec=sec, quantity=quantity, server=server, player='all') }}">all</a></li>
+            {% for p in player_list %}
+                <li><a href="{{ url_for('player_log_latest', sec=sec, quantity=quantity, server=server, player=p.username) }}">{{ p.username }}</a></li>
             {% endfor %}
         </ul>
     </div>

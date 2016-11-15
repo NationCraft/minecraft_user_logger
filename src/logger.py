@@ -1,9 +1,10 @@
 import threading
 from time import sleep
-from datetime import datetime, timedelta
+from datetime import datetime
 from mcstatus import MinecraftServer
 from src.user_logger import app
 from src.models.session import Session
+from src.models.user import User
 
 
 class LoggerThread(threading.Thread):
@@ -37,6 +38,9 @@ class LoggerThread(threading.Thread):
                         if not LoggerThread.exist_in_mongo(logged_in_user, sessions):
                             now = datetime.utcnow()
                             new_session = Session(logged_in_user, server.name, now)
+                            if not LoggerThread.user_exist(new_session.player_name):
+                                new_user = User(new_session.player_name)
+                                new_user.save_to_mongo()
                             new_session.save_to_mongo()
 
             sleep(60)
@@ -60,3 +64,10 @@ class LoggerThread(threading.Thread):
             if session.player_name == online_player:
                 return True
         return False
+
+    @staticmethod
+    def user_exist(user):
+        if user in User.get_usernames():
+            return True
+        else:
+            return False
