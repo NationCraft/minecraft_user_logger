@@ -29,6 +29,7 @@ Execute setup.sh:
 sudo /home/www/minecraft_user_logger/setup.sh
 ```
 
+### Skip to "Setup Supervisor" section
 ---
 
 ### Manual Installation:
@@ -107,6 +108,8 @@ Restart nginx:
 sudo systemctl restart nginx
 ```
 
+---
+
 ### Setup Supervisor
 Create config file:
 ```
@@ -115,11 +118,18 @@ sudo nano /etc/supervisor/conf.d/minecraft_user_logger.conf
 
 Add:
 ```
-[program:flask_project]
-command = gunicorn app:app -b localhost:8000
-directory = /home/www/flask_project
+[program:minecraft_user_logger]
+command = gunicorn run:app -b localhost:8000
+directory = /home/www/minecraft_user_logger
 user = newuser
 ```
 Just make sure you replace "newuser" with the correct username.
 
-And your finished. Restart and enjoy.
+**Reboot the system**
+
+Finally execute this last command:
+```
+sudo systemctl start supervisor.service
+```
+
+# Enjoy
