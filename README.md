@@ -1,6 +1,17 @@
 # minecraft_user_logger
 
+## On Ubuntu 16.04
+
 ### Install using setup.sh:
+
+##### Create User
+Skip this step if you are not root
+
+Replace "newuser" with desired username:
+```
+adduser newuser
+adduser newuser sudo
+```
 
 ##### Install Git:
 ```
@@ -42,7 +53,16 @@ sudo /home/www/minecraft_user_logger/setup.sh
 * virtualenv
 * nginx
 
-##### On Ubuntu 16.04
+##### Create User
+Skip this step if you are not root
+
+Replace "newuser" with desired username:
+```
+adduser newuser
+adduser newuser sudo
+```
+
+Install packages needed:
 ```
 sudo apt update
 sudo apt install -y git python3 python3-pip virtualenv nginx
