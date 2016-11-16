@@ -3,7 +3,6 @@ from src.models.server import Server
 
 class Config(object):
     DEBUG = False
-    SECRET_KEY = 'asdjhvflakmfnbv'
 
     # Database configs
     DATABASE_URI = "mongodb://127.0.0.1:27017"

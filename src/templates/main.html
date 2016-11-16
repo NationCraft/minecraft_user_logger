@@ -23,19 +23,4 @@
             </div>
         </div>
     {% endfor %}
-
-    <div id="newDate">
-
-    </div>
-
-    <script type="application/javascript">
-        function convert() {
-            console.log("{{ dt.month }}/{{ dt.day }}/{{ dt.year }} {{ dt.hour }}:{{ dt.second }} UTC")
-            var localDate = new Date("{{ dt.month }}/{{ dt.day }}/{{ dt.year }} {{ dt.hour }}:{{ dt.minute }}:{{ dt.second }} UTC");
-            console.log(localDate.toString());
-            document.write("{{ test }}");
-        }
-        convert();
-
-    </script>
 {% endblock %}

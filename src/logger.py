@@ -21,7 +21,7 @@ class LoggerThread(threading.Thread):
                 try:
                     logged_in_users = LoggerThread.get_loggedin_users(server.domain, server.port)
                 except Exception as e:
-                    print('get_loggedin_users error:', e)
+                    print('get_loggedin_users error on {}: {}'.format(server.name, e))
                 sessions = Session.get_by_logout(server_name=server.name)
 
                 # Updating and saving logout info
