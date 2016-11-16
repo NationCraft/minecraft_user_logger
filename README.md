@@ -11,7 +11,7 @@ sudo apt install git
 ##### Setup project:
 Create new directory to store project:
 ```
-sudo mkdir /home/www && /home/www
+sudo mkdir /home/www && cd /home/www
 ```
 
 Clone git repository:
@@ -22,6 +22,11 @@ sudo git clone https://github.com/NationCraft/minecraft_user_logger.git
 Make setup.sh executable:
 ```
 sudo chmod +x /home/www/minecraft_user_logger/setup.sh
+```
+
+Execute setup.sh:
+```
+sudo /home/www/minecraft_user_logger/setup.sh
 ```
 
 ---
