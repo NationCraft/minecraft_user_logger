@@ -2,7 +2,7 @@
 
 # Install packages needed wit Apt
 sudo apt update
-sudo apt install -y python3 python3-pip virtualenv nginx
+sudo apt install -y python3 python3-pip virtualenv nginx mongodb
 
 # Setup python virtualenv
 cd /home/www/minecraft_user_logger/
@@ -20,6 +20,6 @@ sudo rm /etc/nginx/sites-enabled/default
 sudo touch /etc/nginx/sites-available/minecraft_user_logger
 sudo ln -s /etc/nginx/sites-available/minecraft_user_logger /etc/nginx/sites-enabled/minecraft_user_logger
 
-sudo echo -e "server {\n    location / {\n        proxy_pass http://localhost:8000;\n        proxy_set_header Host \$host;\n        proxy_set_header X-Real-IP $remote_addr;\n    }\n    location /static {\n        alias  /home/www/minecraft_user_logger/src/static/;\n    }\n}" > /etc/nginx/sites-enabled/minecraft_user_logger
+sudo echo -e "server {\n    location / {\n        proxy_pass http://localhost:8000;\n        proxy_set_header Host \$host;\n        proxy_set_header X-Real-IP \$remote_addr;\n    }\n    location /static {\n        alias  /home/www/minecraft_user_logger/src/static/;\n    }\n}" > /etc/nginx/sites-enabled/minecraft_user_logger
 
 sudo systemctl restart nginx

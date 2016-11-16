@@ -35,6 +35,7 @@ sudo /home/www/minecraft_user_logger/setup.sh
 
 ##### Requirements
 * git
+* mongodb
 * python3
 * python3-pip
 * virtualenv
