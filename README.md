@@ -1,6 +1,34 @@
 # minecraft_user_logger
 
-### Requirements
+### Install using setup.sh:
+
+##### Install Git:
+```
+sudo apt update
+sudo apt install git
+```
+
+##### Setup project:
+Create new directory to store project:
+```
+sudo mkdir /home/www && /home/www
+```
+
+Clone git repository:
+```
+sudo git clone https://github.com/NationCraft/minecraft_user_logger.git
+```
+
+Make setup.sh executable:
+```
+sudo chmod +x /home/www/minecraft_user_logger/setup.sh
+```
+
+---
+
+### Manual Installation:
+
+##### Requirements
 * git
 * python3
 * python3-pip
@@ -13,7 +41,7 @@ sudo apt update
 sudo apt install -y git python3 python3-pip virtualenv nginx
 ```
 
-### Setup environment
+##### Setup environment
 Create new directory to store project:
 ```
 sudo mkdir /home/www && /home/www
@@ -36,7 +64,7 @@ Install Python dependencies:
 sudo pip3 install -r requirements.txt
 ```
 
-### Configure nginx
+##### Configure nginx
 Start nginx:
 ```
 sudo systemctl start nginx
