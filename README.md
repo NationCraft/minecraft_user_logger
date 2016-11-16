@@ -107,8 +107,19 @@ Restart nginx:
 sudo systemctl restart nginx
 ```
 
-Test:
+### Setup Supervisor
+Create config file:
 ```
-cd /home/www/minecraft_user_logger/
-gunicorn run:app -b localhost:8000
+sudo nano /etc/supervisor/conf.d/minecraft_user_logger.conf
 ```
+
+Add:
+```
+[program:flask_project]
+command = gunicorn app:app -b localhost:8000
+directory = /home/www/flask_project
+user = newuser
+```
+Just make sure you replace "newuser" with the correct username.
+
+And your finished. Restart and enjoy.

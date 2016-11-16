@@ -2,7 +2,7 @@
 
 # Install packages needed wit Apt
 sudo apt update
-sudo apt install -y python3 python3-pip virtualenv nginx mongodb
+sudo apt install -y python3 python3-pip virtualenv nginx mongodb supervisor
 
 # Setup python virtualenv
 cd /home/www/minecraft_user_logger/

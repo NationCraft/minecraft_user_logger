@@ -15,4 +15,6 @@ def start_logger_thread():
 
 init_db()
 start_logger_thread()
-app.run()
+
+if __name__ == '__main__':
+    app.run()
