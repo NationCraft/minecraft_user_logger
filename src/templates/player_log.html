@@ -30,26 +30,16 @@
                         <td></td>
                     {% endif %}
                     {% if session.session_length %}
-                        <td>{{ (session.session_length / 60)|int }} min {{ (session.session_length % 60)|int }} sec</td>
+                        {% if session.session_length / 60 >= 60 %}
+                           <td>{{((session.session_length / 60) / 60)|int}} hrs {{((session.session_length / 60) % 60)|int}} min</td>
+                        {% else %}
+                            <td>{{(session.session_length / 60)|int}} min</td>
+                        {% endif %}
                     {% else %}
                         <td></td>
                     {% endif %}
                 </tr>
             {% endfor %}
-        </tbody>
-
-        <tbody>
-            {% if player_data != None %}
-                {% for i in player_data %}as
-                    <tr>
-                        <td>{{ i.username }}</td>
-                        <td>{{ i.server }}</td>
-                        <td>{{ i.login.strftime('%Y-%m-%d  %H:%M') }}</td>
-                        <td>{{ i.logout.strftime('%Y-%m-%d  %H:%M') }}</td>
-                        <td>{{ i.session }}</td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
         </tbody>
     </table>
 </div>
